@@ -54,27 +54,45 @@ public class SmartDate extends Date{
         return year%4 == 0;
     }
 
+    public String dayOfTheWeek() {
+        int m = month(); 
+        int d = day();   
+        int y = year();  
+        if (m < 3) {
+            m += 12;
+            y -= 1;
+        }
+    
+        int k = y % 100;   
+        int j = y / 100;      
+        int h = (d + (13 * (m + 1)) / 5 + k + (k / 4) + (j / 4) + 5 * j) % 7;
+    
+        
+        String[] daysOfWeek = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        return daysOfWeek[h];
+    }
+
     public static void main(String[] args) {
         try {
             SmartDate date1 = new SmartDate(2, 29, 2020);
-            System.out.println("Valid date: " + date1);
+            System.out.println("Valid date: " + date1 + " - Day of the week: " + date1.dayOfTheWeek());
     
-            SmartDate date2 = new SmartDate("2/29/2021");
-            System.out.println("Valid date: " + date2);
+            SmartDate date2 = new SmartDate("3/15/2021");
+            System.out.println("Valid date: " + date2 + " - Day of the week: " + date2.dayOfTheWeek());
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
         }
     
         try {
-            SmartDate date3 = new SmartDate(13, 1, 2021);
-            System.out.println("Valid date: " + date3);
+            SmartDate date3 = new SmartDate(4, 1, 2021);
+            System.out.println("Valid date: " + date3 + " - Day of the week: " + date3.dayOfTheWeek());
         } catch (IllegalArgumentException e) {
             System.err.println("Expected exception for invalid date: " + e.getMessage());
         }
     
         try {
-            SmartDate date4 = new SmartDate("2/30/2020");
-            System.out.println("Valid date: " + date4);
+            SmartDate date4 = new SmartDate("7/4/2020");
+            System.out.println("Valid date: " + date4 + " - Day of the week: " + date4.dayOfTheWeek());
         } catch (IllegalArgumentException e) {
             System.err.println("Expected exception for invalid date: " + e.getMessage());
         }
