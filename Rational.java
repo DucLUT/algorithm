@@ -22,20 +22,26 @@ public class Rational {
         return big;
     }
     public Rational plus(Rational b){
+        assert (Long.MAX_VALUE / Math.abs(denominator) >= Math.abs(b.denominator)) : "Overflow in addtion";
         long commonDenominator = this.denominator * b.denominator;
         long numeratorSum = this.numerator * b.denominator + b.numerator * this.denominator;
         return new Rational((int)numeratorSum,(int)commonDenominator);
     }
     public Rational minus(Rational b){
+        assert (Long.MAX_VALUE / Math.abs(denominator) >= Math.abs(b.denominator)) : "Overflow in subtraction";
         long commonDenominator = this.denominator * b.denominator;
         long numeratorDifference = this.numerator * b.denominator - b.numerator * this.denominator;
         return new Rational((int)numeratorDifference, (int)commonDenominator);
     }
 
     public Rational times(Rational b){
+        assert (Long.MAX_VALUE / Math.abs(denominator) >= Math.abs(b.denominator)) : "Overflow in multiplication";
+        assert (Long.MAX_VALUE / Math.abs(numerator) >= Math.abs(b.numerator)) : "Overflow in multiplication";
         return new Rational((int)(this.numerator * b.numerator), (int)(this.denominator*b.denominator));
     }
     public Rational dividedBy(Rational b){
+        assert (Long.MAX_VALUE / Math.abs(numerator) >= Math.abs(b.denominator)) : "Overflow in division";
+        assert (Long.MAX_VALUE / Math.abs(b.numerator) >= Math.abs(denominator)) : "Overflow in division";
         return new Rational((int)(this.numerator * b.denominator),(int)(this.denominator*b.numerator));
 
     }
