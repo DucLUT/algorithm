@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Insertion {
     public static void sort(Comparable[] a) {
         for (int i = 1; i < a.length; i++){
@@ -23,9 +24,21 @@ public class Insertion {
         }
         System.out.println();
     }
+    public static boolean check(Comparable[] a){
+        sort(a);
+        for (int i = 1; i < a.length; i++){
+            if (less(a[i], a[i-1])){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
     public static void main(String[] args) {
+
         Integer[] a = { 3, 4, 33, 432, 34, 3333 };
         sort(a);
-        show(a);
+        show(a); 
     }
 }

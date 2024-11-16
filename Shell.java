@@ -1,17 +1,21 @@
-public class Selection {
-    public static void sort(Comparable[] a) {
-        int n = a.length;
-        for (int i = 0; i < n; i++) {
-            int min = i;
-            for (int j = i + 1; j < n; j++) {
-                if (less(a[j], a[min])) {
-                    min = j;
-                }
-            }
-            exch(a, i, min);
+public class Shell {
+    public static void sort(Comparable[] a){
+        int N = a.length;
+        int h = 1;
+        while (h < N/3){
+            h = h*3+1;
         }
-    }
+        while (h >= 1){
+            for (int i = h; i < N; i++){
+                for (int j = i; j >= h && less(a[j], a[j-h]); j -= h){
+                    exch(a, j, j-h);
 
+                }
+                h = h /3;
+            }
+        }
+
+    }
     private static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
@@ -37,9 +41,8 @@ public class Selection {
         }
         return true;
     }
-
     public static void main(String[] args) {
-        String[] a = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
+        Integer[] a = { 3, 4, 33, 432, 34, 3333 };
         sort(a);
         show(a);
     }
